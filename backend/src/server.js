@@ -18,7 +18,6 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)(corsOptions_1.corsOptions));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Origin", '*');
     next();
 });
 const account_1 = __importDefault(require("./routes/account"));
