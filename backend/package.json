@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsc && node ./out/server.js",
     "build":"npm i",
-    "start": "node scr/server.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
