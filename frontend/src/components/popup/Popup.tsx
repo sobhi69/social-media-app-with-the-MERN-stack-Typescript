@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, ReactNode, useCallback, useEffect } from 'react'
 import { FaXmark } from "react-icons/fa6";
 interface PopupProps {
     isOpen: boolean,
