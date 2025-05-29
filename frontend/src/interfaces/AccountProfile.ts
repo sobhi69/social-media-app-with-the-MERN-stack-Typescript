@@ -1,5 +1,3 @@
-import PostRecieved from "./PostRecieved";
-
 export default interface AccountProfile {
     firstname: string,
     lastname: string,
