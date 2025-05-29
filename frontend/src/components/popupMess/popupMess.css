@@ -1,0 +1,12 @@
+.pupup-mess {
+    width: 5rem;
+    color: white;
+    overflow: hidden;
+    animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    to {
+        width: 10rem;
+    }
+}

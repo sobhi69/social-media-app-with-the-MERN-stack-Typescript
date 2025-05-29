@@ -5,12 +5,14 @@ import { FaXmark } from "react-icons/fa6";
 import Popup from '../popup/Popup';
 import PostForm from '../../interfaces/PostForm';
 import useAuth from '../../hooks/useAuth';
+import PopupMess from '../popupMess/PopupMess';
 
 interface CreatePostProps {
-    createPost: (postData: PostForm) => void
+    createPost: (postData: PostForm) => void,
+    loading:boolean
 }
 
-const CreatePost: FC<CreatePostProps> = ({ createPost }) => {
+const CreatePost: FC<CreatePostProps> = ({ createPost,loading }) => {
     const [postPopup, setPostPopup] = useState(false)
     const popInput = useRef<HTMLInputElement | null>(null)
     const [postForm, setPostForm] = useState<PostForm>({
@@ -64,7 +66,6 @@ const CreatePost: FC<CreatePostProps> = ({ createPost }) => {
                 return { ...prev, photo: undefined, video: undefined }
             })
         }
-        console.log(file)
 
         
         if (file == 'video') {
@@ -81,6 +82,7 @@ const CreatePost: FC<CreatePostProps> = ({ createPost }) => {
 
     return (
         <>
+            <PopupMess isOpen={loading}/>
             <div className='p-3 rounded-lg bg-white'>
                 <div className='flex items-center mb-4'>
                     <img
@@ -141,7 +143,7 @@ const CreatePost: FC<CreatePostProps> = ({ createPost }) => {
                             ref={popInput}
                             onClick={() => setPostPopup(true)}
                             onChange={(e) => updateForm({ caption: e.target.value })}
-                            className='h-auto text-wrap w-96'
+                            className='h-auto text-wrap min-w-96'
                             type="text"
                             placeholder='Write a cation..' />
                     </div>

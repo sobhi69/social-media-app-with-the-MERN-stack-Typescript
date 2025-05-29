@@ -5,12 +5,13 @@ import useAuth from '../../hooks/useAuth';
 import Popup from '../popup/Popup';
 import EditProfile from '../../interfaces/EditProfile';
 import { Link } from 'react-router-dom';
+import PopupMess from '../popupMess/PopupMess';
 interface ProfileInfoProps {
 
 }
 
 const ProfileInfo: FC<ProfileInfoProps> = ({ }) => {
-    const { curUser, logOut, updateUser, updateUserImg, updateUserCover, loading } = useAuth()
+    const { curUser, logOut, updateUser, updateUserImg, updateUserCover } = useAuth()
     const [updateMode, setUpdateMode] = useState(false)
     const [form, setForm] = useState<EditProfile>({
         country: "",
@@ -21,6 +22,8 @@ const ProfileInfo: FC<ProfileInfoProps> = ({ }) => {
         gender: "male",
         relationshipStatus: ''
     })
+
+    const [loadingPopup, setLoadingPopup] = useState(false)
 
     useEffect(() => {
         if (curUser) {
@@ -72,8 +75,9 @@ const ProfileInfo: FC<ProfileInfoProps> = ({ }) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-
         updateUser(form)
+        setLoadingPopup(true)
+
 
         if (form.profileImg) {
             updateUserImg(form.profileImg)
@@ -83,15 +87,15 @@ const ProfileInfo: FC<ProfileInfoProps> = ({ }) => {
             updateUserCover(form.coverImg)
         }
 
-        if (loading) {
-            alert('loading')
-        } else {
-            setUpdateMode(false)
-        }
+        setUpdateMode(false)
+        setTimeout(() => {
+            setLoadingPopup(false)
+        }, 5000)
     }
 
     return (
         <div>
+            <PopupMess isOpen={loadingPopup} />
             <div className='mt-3 rounded-2xl p-3 bg-gradient-to-b from-white to-slate-200 flex flex-col items-center'>
                 <div className='flex justify-between items-center w-full'>
                     <h4 className='font-bold text-lg'>Profile Info</h4>

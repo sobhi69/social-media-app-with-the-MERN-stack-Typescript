@@ -1,5 +1,5 @@
 // بسم الله الرحمن الرحيم 
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import Posts from './Posts';
 import { Post } from '../../interfaces/Post';
 import WriteCaption from './CreatePost';
@@ -14,6 +14,7 @@ interface ContentProps {
 
 const Content: FC<ContentProps> = ({ curPage }) => {
 
+    const [loading,setLoading] = useState(false)
     const initalVal: Post[] = []
     const { getData, data: posts, setData: setPosts, isLoading } = useGetData('/post/get-posts', initalVal)
     useEffect(() => {
@@ -26,6 +27,7 @@ const Content: FC<ContentProps> = ({ curPage }) => {
     }, [posts])
 
     const createPost = async (postForm: PostForm) => {
+        setLoading(true)
         const formData = new FormData()
 
         formData.append('caption', postForm?.caption || '')
@@ -50,6 +52,8 @@ const Content: FC<ContentProps> = ({ curPage }) => {
             })
         } catch (error) {
             alert(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -116,7 +120,7 @@ const Content: FC<ContentProps> = ({ curPage }) => {
 
     return (
         <div className={`${curPage == 'home' ? 'ml-[18rem] w-2/3' : ""}`}>
-            <WriteCaption createPost={createPost} />
+            <WriteCaption createPost={createPost} loading={loading}/>
             <Posts
                 isLoading={isLoading}
                 deletePost={deletePost}
@@ -127,17 +131,6 @@ const Content: FC<ContentProps> = ({ curPage }) => {
         </div>
     )
 }
-
-// alright what's about the follow and unfollow 
-// first we kida wanna send a note to the account that is being follwed 
-// curId targetId
-// curId follwing +1
-// targetId followers +1 and a notifcation 
-// notification 
-// message 
-// seen 
-// from 
-// 
 
 export default Content;
 
