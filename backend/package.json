@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc && node ./out/server.js"
+    "dev": "tsc && node ./out/server.js",
+    "build":"npm i",
+    "start": "npm scr/server.js"
   },
   "keywords": [],
   "author": "",
